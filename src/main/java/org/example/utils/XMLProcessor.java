@@ -88,6 +88,7 @@ public class XMLProcessor extends Thread{
     public void deleteFile() {
 
         File f = new File(inputFolder + "\\" + file.toString());
+        f.delete();
     }
 
     public void writeXML() {

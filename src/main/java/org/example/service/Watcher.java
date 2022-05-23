@@ -43,7 +43,6 @@ public class Watcher {
                 WatchEvent.Kind<?> kind = event.kind();
                 WatchEvent<Path> ev = (WatchEvent<Path>) event;
                 Path file = ev.context();
-                System.out.println("file " + file);
 
                 if (kind == OVERFLOW) {
                     continue;
