@@ -4,7 +4,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.example.utils.XMLProcessor;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.logging.Logger;

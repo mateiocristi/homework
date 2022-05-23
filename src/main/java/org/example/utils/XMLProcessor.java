@@ -38,23 +38,18 @@ public class XMLProcessor extends Thread{
     @Override
     public void run() {
         try {
-
             if (!isValidFilename() || !isContentValid()) {
                 System.err.println("invalid file");
+                deleteFile();
                 return;
             }
-
             readXML();
             deleteFile();
             processContent();
             writeXML();
-
         } catch (IOException e) {
-
             throw new RuntimeException(e);
-
         }
-
     }
 
     public boolean isValidFilename() throws IOException {
@@ -64,29 +59,23 @@ public class XMLProcessor extends Thread{
             return true;
         }
         return false;
-
     }
 
     public boolean isContentValid() throws IOException{
-
         if (!Files.probeContentType(file).equals("text/xml")) {
             System.err.format("New file '%s'" +
                     " is not an xml file.%n\n", file);
             return false;
         }
-
         return true;
-
     }
 
     public void readXML() throws IOException {
-
         String content = Files.readString(Path.of(inputFolder + "\\" + file));
         orders = xmlMapper.readValue(content, Orders.class);
     }
 
     public void deleteFile() {
-
         File f = new File(inputFolder + "\\" + file.toString());
         f.delete();
     }
@@ -94,6 +83,7 @@ public class XMLProcessor extends Thread{
     public void writeXML() {
         for (String key : outputData.keySet()) {
             Supplier supplier = new Supplier(outputData.get(key));
+
             try {
                 xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
                 xmlMapper.enable(ToXmlGenerator.Feature.WRITE_XML_DECLARATION);
@@ -105,7 +95,6 @@ public class XMLProcessor extends Thread{
     }
 
     public void processContent() {
-
         for (Order order: orders.getOrders()) {
             order.getProducts().forEach(product -> product.setDate(order.getCreated()));
             products.addAll(order.getProducts());
@@ -114,7 +103,5 @@ public class XMLProcessor extends Thread{
         Comparator<Product> productDateComparator = Comparator.comparingLong(Product::dateToTimestamp);
         products.sort(productDateComparator.reversed());
         outputData = products.stream().collect(Collectors.groupingBy(Product::getSupplier));
-
     }
-
 }

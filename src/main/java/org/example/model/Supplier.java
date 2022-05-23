@@ -17,7 +17,6 @@ import java.util.List;
 public class Supplier {
 
     @JacksonXmlProperty(localName = "product")
-//    @JacksonXmlCData
     @JacksonXmlElementWrapper(useWrapping = false)
     List<Product> products;
 }
