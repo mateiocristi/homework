@@ -30,7 +30,6 @@ public class Watcher {
         config.load("application.properties");
         inputFolder = config.getString("INPUT_DIRECTORY");
         outputFolder = config.getString("OUTPUT_DIRECTORY");
-
     }
 
     public void start() throws IOException, InterruptedException {

@@ -96,7 +96,10 @@ public class XMLProcessor extends Thread{
 
     public void processContent() {
         for (Order order: orders.getOrders()) {
-            order.getProducts().forEach(product -> product.setDate(order.getCreated()));
+            order.getProducts().forEach(product -> {
+                product.setDate(order.getCreated());
+                product.setOrderID(order.getID());
+            });
             products.addAll(order.getProducts());
         }
 

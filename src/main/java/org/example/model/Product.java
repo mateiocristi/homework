@@ -1,6 +1,7 @@
 package org.example.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Getter;
@@ -27,11 +28,15 @@ public class Product {
     @JacksonXmlProperty(localName = "price")
     private double price;
 
-    @JacksonXmlProperty(localName = "supplier")
-    private String supplier;
+    @JacksonXmlProperty(localName = "orderid")
+    private long orderID;
 
     @JsonIgnore
     private String date;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JacksonXmlProperty(localName = "supplier")
+    private String supplier;
 
     public long dateToTimestamp() {
         // 2012-07-12T15:29:33.000

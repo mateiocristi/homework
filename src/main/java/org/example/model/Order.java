@@ -13,10 +13,10 @@ import java.util.List;
 @JacksonXmlRootElement(localName = "order")
 public class Order {
 
-    @JacksonXmlProperty(localName = "created")
+    @JacksonXmlProperty(localName = "created", isAttribute = true)
     private String created;
 
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty(localName = "ID", isAttribute = true)
     private long ID;
 
     @JacksonXmlProperty(localName = "product")
